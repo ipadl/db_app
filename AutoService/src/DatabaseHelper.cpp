@@ -6,7 +6,6 @@
 using namespace System;
 using namespace System::Data;
 using namespace System::Data::SqlClient;
-using namespace System::Configuration;
 using namespace System::Windows::Forms;
 
 namespace AutoService {
@@ -17,14 +16,8 @@ namespace AutoService {
         this->sqlLogin = nullptr;
         this->sqlPassword = nullptr;
 
-        // Читаем строку подключения из app.config
-        try {
-            this->connectionString = ConfigurationManager::ConnectionStrings["AutoServiceWinAuth"]->ConnectionString;
-        }
-        catch (Exception^) {
-            // Если конфиг не найден - используем строку по умолчанию
-            this->connectionString = "Server=localhost\\SQLEXPRESS;Database=AutoServiceDB;Integrated Security=true;TrustServerCertificate=true;";
-        }
+        // Строка подключения задана напрямую в коде
+        this->connectionString = "Server=localhost\\SQLEXPRESS;Database=AutoServiceDB;Integrated Security=true;TrustServerCertificate=true;";
     }
 
     // Конструктор для SQL Server аутентификации (логин + пароль)
@@ -33,17 +26,10 @@ namespace AutoService {
         this->sqlLogin = login;
         this->sqlPassword = password;
 
-        // Читаем шаблон строки подключения из app.config и подставляем логин/пароль
-        try {
-            String^ connectionTemplate = ConfigurationManager::ConnectionStrings["AutoServiceSqlAuth"]->ConnectionString;
-            this->connectionString = String::Format(connectionTemplate, login, password);
-        }
-        catch (Exception^) {
-            // Если конфиг не найден - собираем строку вручную
-            this->connectionString = String::Format(
-                "Server=localhost\\SQLEXPRESS;Database=AutoServiceDB;User Id={0};Password={1};TrustServerCertificate=true;",
-                login, password);
-        }
+        // Строка подключения собирается напрямую из переданных параметров
+        this->connectionString = String::Format(
+            "Server=localhost\\SQLEXPRESS;Database=AutoServiceDB;User Id={0};Password={1};TrustServerCertificate=true;",
+            login, password);
     }
 
     // Получить строку подключения
