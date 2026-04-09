@@ -6,7 +6,6 @@
 using namespace System;
 using namespace System::Data;
 using namespace System::Data::SqlClient;
-using namespace System::Configuration;
 using namespace System::Windows::Forms;
 
 namespace AutoService {
