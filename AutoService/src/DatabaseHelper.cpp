@@ -35,8 +35,8 @@ namespace AutoService {
 
         // Читаем шаблон строки подключения из app.config и подставляем логин/пароль
         try {
-            String^ template_ = ConfigurationManager::ConnectionStrings["AutoServiceSqlAuth"]->ConnectionString;
-            this->connectionString = String::Format(template_, login, password);
+            String^ connectionTemplate = ConfigurationManager::ConnectionStrings["AutoServiceSqlAuth"]->ConnectionString;
+            this->connectionString = String::Format(connectionTemplate, login, password);
         }
         catch (Exception^) {
             // Если конфиг не найден - собираем строку вручную

@@ -883,7 +883,7 @@ namespace AutoService {
         // Автомобили для комбобокса
         void LoadCarsCombo() {
             DataTable^ dt = db->ExecuteQuery(
-                "SELECT CarId, Brand + ' ' + Model + ' (' + CAST(Year AS VARCHAR) + ')' AS CarName "
+                "SELECT CarId, Brand + ' ' + Model + ' (' + CAST(Year AS VARCHAR(4)) + ')' AS CarName "
                 "FROM Cars WHERE OwnerId = (SELECT UserId FROM Users WHERE Login = @login)",
                 gcnew array<SqlParameter^>{ gcnew SqlParameter("@login", currentUser) });
             cmbCar->DataSource = dt;
@@ -893,7 +893,7 @@ namespace AutoService {
 
         // Услуги для CheckedListBox
         void LoadServicesChecklist() {
-            DataTable^ dt = db->ExecuteQuery("SELECT ServiceId, ServiceName + ' - ' + CAST(Price AS VARCHAR) + ' руб.' AS Descr FROM Services");
+            DataTable^ dt = db->ExecuteQuery("SELECT ServiceId, ServiceName + ' - ' + CAST(Price AS VARCHAR(20)) + ' руб.' AS Descr FROM Services");
             clbServices->Items->Clear();
             for (int i = 0; i < dt->Rows->Count; i++) {
                 clbServices->Items->Add(dt->Rows[i]["Descr"]->ToString());

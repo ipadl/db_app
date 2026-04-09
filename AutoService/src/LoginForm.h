@@ -37,12 +37,17 @@ namespace AutoService {
 
         // Результаты авторизации
         String^ userRole;
+        String^ userLogin;
         DatabaseHelper^ dbHelper;
 
     public:
         // Свойства для получения результатов после входа
         property String^ UserRole {
             String^ get() { return userRole; }
+        }
+
+        property String^ UserLogin {
+            String^ get() { return userLogin; }
         }
 
         property DatabaseHelper^ DbHelper {
@@ -263,6 +268,7 @@ namespace AutoService {
             }
 
             userRole = role;
+            userLogin = txtAppLogin->Text;
             this->DialogResult = System::Windows::Forms::DialogResult::OK;
             this->Close();
         }

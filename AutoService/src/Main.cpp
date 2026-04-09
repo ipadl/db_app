@@ -26,7 +26,7 @@ int main(array<String^>^ args) {
             MainForm^ mainForm = gcnew MainForm(
                 loginForm->DbHelper,
                 loginForm->UserRole,
-                "user" // можно передать логин
+                loginForm->UserLogin
             );
 
             System::Windows::Forms::DialogResult mainResult = mainForm->ShowDialog();
